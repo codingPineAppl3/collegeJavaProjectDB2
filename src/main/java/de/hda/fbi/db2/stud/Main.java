@@ -7,6 +7,7 @@ import java.util.List;
 import de.hda.fbi.db2.tools.CsvDataReader;
 
 /**
+ * bin groupe 7
  * Main Class.
  * @version 0.1.1
  * @since 0.1.0
