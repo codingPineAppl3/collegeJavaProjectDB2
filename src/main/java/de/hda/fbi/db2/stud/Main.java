@@ -24,7 +24,7 @@ public class Main {
         try {
             //Read default csv
             final List<String[]> defaultCsvLines = CsvDataReader.read();
-            
+            System.out.println("test commit");
             //Read (if available) additional csv-files and default csv-file
             List<String> availableFiles = CsvDataReader.getAvailableFiles();
             for (String availableFile: availableFiles){
