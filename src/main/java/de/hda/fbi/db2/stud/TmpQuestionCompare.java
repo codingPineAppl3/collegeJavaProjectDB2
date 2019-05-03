@@ -97,7 +97,7 @@ public class TmpQuestionCompare {
     }
 
     public static final Comparator<TmpQuestionCompare>
-            sortByCategory = new Comparator<TmpQuestionCompare>(){
+            SORTBYCATEGORY = new Comparator<TmpQuestionCompare>(){
       @Override
       public int compare(TmpQuestionCompare obj1, TmpQuestionCompare obj2){
           return obj1.category.compareTo(obj2.category);

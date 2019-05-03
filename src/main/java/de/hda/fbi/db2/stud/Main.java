@@ -44,7 +44,7 @@ public class Main {
                     }
                     ++categoryID;
                 }
-                Collections.sort(csvLines, TmpQuestionCompare.sortByCategory); //sort by category*/
+                Collections.sort(csvLines, TmpQuestionCompare.SORTBYCATEGORY); //sort by category*/
                 System.out.println("Sorted List of Questions: " + csvLines.size());
                 String tmpCat = " ";
                 for (TmpQuestionCompare tqc : csvLines) {
