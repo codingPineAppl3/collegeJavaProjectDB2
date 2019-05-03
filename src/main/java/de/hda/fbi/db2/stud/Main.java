@@ -32,7 +32,7 @@ public class Main {
             //Read default csv
             final List<String[]> defaultCsvLines = CsvDataReader.read();
             if (!(defaultCsvLines == null)) {
-                Question tmpQuestion = new Question();
+                //Question tmpQuestion = new Question();
                 int categoryID = 0;
 
                 for (String[] data : defaultCsvLines) {
@@ -63,18 +63,23 @@ public class Main {
                         //"TODO(xiaominjin): don´t forget to persist category here"
                         tmpQuestionL.clear();
                     }
-                    tmpQuestion.setqId(tqc.getqId());
-                    tmpQuestion.setQuestion(tqc.getQuestion());
-                    tmpQuestion.setA1(tqc.getA1());
-                    tmpQuestion.setA2(tqc.getA2());
-                    tmpQuestion.setA3(tqc.getA3());
-                    tmpQuestion.setA4(tqc.getA4());
-                    tmpQuestion.setSolution(tqc.getCAnswer());
+                    Question question = new Question();
+                    question.setqId(tqc.getqId());
+                    question.setQuestion(tqc.getQuestion());
+                    question.setA1(tqc.getA1());
+                    question.setA2(tqc.getA2());
+                    question.setA3(tqc.getA3());
+                    question.setA4(tqc.getA4());
+                    question.setSolution(tqc.getCAnswer());
                     //"TODO(xiaomijin): don´t forget to persist question here"
-                    tmpQuestionL.add(tmpQuestion);
+                    tmpQuestionL.add(question);
 
                     setCategory.add(tqc.getCategory());  //ignore category dublicates
                 }
+                Category category = new Category();
+                category.setName(tmpCat);
+                category.setQuestionList(tmpQuestionL);
+                category.printCategory();
                     /*Iterator<String> itc = setCategory.iterator();
                     while (itc.hasNext()) {
                         System.out.println("Category: " + itc.next());
