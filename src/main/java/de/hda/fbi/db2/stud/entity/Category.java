@@ -1,8 +1,8 @@
-package de.hda.fbi.db2.stud;
+package de.hda.fbi.db2.stud.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -11,38 +11,35 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
-@Table(name = "Category", schema = "Category")
+@Table(name = "Category")
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    //@SequenceGenerator(name = "seq", initialValue = 1, allocationSize = 100)
+    @Column(updatable = false, nullable = false)
     private int categoryID;
     @Column(name = "category_name", unique = true)
     private String name;
-    @OneToMany (mappedBy = "category_name", cascade = {CascadeType.ALL})
-    ArrayList<Question> questionList = new ArrayList<>();   //all questions in one category
+    @OneToMany (mappedBy = "category", cascade = {CascadeType.ALL})
+    //@OneToMany(targetEntity = Question.class)
+    @JoinColumn(name = "category_ID")
+    private List<Question> questionList = new ArrayList<>();   //all questions in one category
     // "TODO(xiaominjin): maybe implement equals and hash method."
 
     public Category() {
 
     }
 
-    public Category(String name, ArrayList<Question> questionList) {
+    /*public Category(String name, List<Question> questionList) {
         this.name = name;
         this.questionList = questionList;
     }
 
     public void addQuestion(Question newQuestion) {
        questionList.add(newQuestion);
-    }
+    }*/
 
-    //"TODO(xiaominjin): Need to check on this later."
-    public void setCategoryID(int newCategoryID) {
-        this.categoryID = newCategoryID;
-    }
-    public int getCategoryID() {
-        return categoryID;
-    }
 
     public void setName(String newName) {
         this.name = newName;
@@ -52,13 +49,13 @@ public class Category implements Serializable {
         return name;
     }
 
-    public void setQuestionList(ArrayList<Question> newQuestionList) {
+    public void setQuestionList(List<Question> newQuestionList) {
         this.questionList = newQuestionList;
     }
 
-    public ArrayList<Question> getQuestionList() {
+    /*public List<Question> getQuestionList() {
         return questionList;
-    }
+    }*/
 
     public void printCategory() {
         System.out.println("Category: " + getName());

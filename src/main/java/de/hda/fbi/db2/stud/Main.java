@@ -3,7 +3,9 @@ package de.hda.fbi.db2.stud;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
+import javax.persistence.*;
 
+import de.hda.fbi.db2.stud.entity.*;
 import de.hda.fbi.db2.tools.CsvDataReader;
 
 /**
@@ -19,13 +21,17 @@ public class Main {
      * Main Method and Entry-Point.
      * @param args Command-Line Arguments.
      */
-    private static ArrayList<Question> tmpQuestionL = new ArrayList<>();
-    private static List<TmpQuestionCompare> csvLines = new ArrayList<>();
-    //private static EntityManagerFactory factory
+    private static List<Question> tmpQuestionL = new ArrayList<>();
+    private static List<TmpQuestionCompare> sortTmpList = new ArrayList<>();
+    //private static final String PU = "postgresPU";
+    //private static EntityManagerFactory factory;
+
     public static void main(String[] args) {
         System.out.println("Hello World");
+        //factory = Persistence.createEntityManagerFactory(PU);
+        //EntityManager emf = factory.createEntityManager();
         Set<String> setCategory = new HashSet<>();
-        //EntityManager em = factory.createEntityManager();
+
         try {
             //final Game g = new Game();
             //int countQuestion = 0;
@@ -35,19 +41,25 @@ public class Main {
                 //Question tmpQuestion = new Question();
                 int categoryID = 0;
 
+                //for better performance in P2 (laoding into the database)
+                //the data from .csv file will be sorted by category
                 for (String[] data : defaultCsvLines) {
                     if (categoryID > 0) {
+                        //To be able to sort, I use the TmpQuestionCompare class as Interface
                         TmpQuestionCompare tmpqc = new TmpQuestionCompare(
                                 Integer.parseInt(data[0]), data[1], data[2], data[3],
                                 data[4], data[5], Integer.parseInt(data[6]), data[7]);
-                        csvLines.add(tmpqc);
+                        sortTmpList.add(tmpqc);
                     }
                     ++categoryID;
                 }
-                Collections.sort(csvLines, TmpQuestionCompare.SORTBYCATEGORY); //sort by category*/
-                System.out.println("Sorted List of Questions: " + csvLines.size());
+                Collections.sort(sortTmpList, TmpQuestionCompare.SORTBYCATEGORY); //sort by category
+                //System.out.println("Sorted List of Questions: " + sortTmpList.size());
                 String tmpCat = " ";
-                for (TmpQuestionCompare tqc : csvLines) {
+                //"TODO(xiaominjin): delete after testting"
+                //System.out.println("Transaction begin");
+                //emf.getTransaction().begin();
+                for (TmpQuestionCompare tqc : sortTmpList) {
 
                     String newCat = tqc.getCategory();
                     if (tmpCat == " ") {
@@ -58,9 +70,8 @@ public class Main {
                         category.setName(tmpCat);
                         category.setQuestionList(tmpQuestionL);
                         category.printCategory();
-
                         tmpCat = newCat;
-                        //"TODO(xiaominjin): don´t forget to persist category here"
+                        //emf.persist(category);
                         tmpQuestionL.clear();
                     }
                     Question question = new Question();
@@ -71,7 +82,7 @@ public class Main {
                     question.setA3(tqc.getA3());
                     question.setA4(tqc.getA4());
                     question.setSolution(tqc.getCAnswer());
-                    //"TODO(xiaomijin): don´t forget to persist question here"
+                    //emf.persist(question);
                     tmpQuestionL.add(question);
 
                     setCategory.add(tqc.getCategory());  //ignore category dublicates
@@ -79,15 +90,16 @@ public class Main {
                 Category category = new Category();
                 category.setName(tmpCat);
                 category.setQuestionList(tmpQuestionL);
-                category.printCategory();
-                    /*Iterator<String> itc = setCategory.iterator();
-                    while (itc.hasNext()) {
-                        System.out.println("Category: " + itc.next());
-                    }*/
+                category.printCategory();     //for tests
+                //emf.persist(category);
 
+                //emf.getTransaction().commit();
+                //emf.close();
+                //factory.close();
                 }
 
             //"TODO(xiaominjin): Delete after pushing finished Praktikum1"
+            System.out.println("Number of Questions: " + sortTmpList.size());
             System.out.println("Number of Categories: " + setCategory.size());
 
             //Read (if available) additional csv-files and default csv-file

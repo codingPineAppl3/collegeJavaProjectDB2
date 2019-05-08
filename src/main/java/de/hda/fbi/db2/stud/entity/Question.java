@@ -1,8 +1,6 @@
-package de.hda.fbi.db2.stud;
+package de.hda.fbi.db2.stud.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javax.persistence.*;
 
 
@@ -12,7 +10,7 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
-@Table(name = "Question", schema = "Question")
+@Table(name = "Question")
 public class Question implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,18 +30,15 @@ public class Question implements Serializable {
     @Column(name = "Correct_Answer")
     private int solution;
 
-    //"TODO(xiaominjin): delete after pushing Praktikum 1"
-    /*@ManyToOne
-    @JoinColumn(nullable = false)
-    private String category;*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     // "TODO(xiaominjin): maybe implement equals and hash method."
-    public Question() {
+    //public Question() {
 
-    }
+    //}
 
-    //"TODO(xiaominjin): delete category (string c) after pushing Praktikum1"
-    public Question(int qId, String q, String a1, String a2, String a3,
+    /*public Question(int qId, String q, String a1, String a2, String a3,
                     String a4, int s) {
         this.qId = qId;
         this.question = q;
@@ -52,7 +47,7 @@ public class Question implements Serializable {
         this.a3 = a3;
         this.a4 = a4;
         this.solution = s;
-    }
+    }*/
 
     public int getqId() {
         return qId;
@@ -110,10 +105,12 @@ public class Question implements Serializable {
         this.solution = solution;
     }
 
-    public void printQuestions() {
-        System.out.println("Question: " + getQuestion());
-        System.out.println("Answers: " + getA1() + ", " + getA2()
-                + ", " + getA3() + ", " + getA4());
-        System.out.println("Correct Answer: " + getSolution());
+    /*public Category getCategory() {
+        return category;
     }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }*/
+
 }

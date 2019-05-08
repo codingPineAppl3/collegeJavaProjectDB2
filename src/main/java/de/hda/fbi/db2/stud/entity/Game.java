@@ -1,10 +1,8 @@
-package de.hda.fbi.db2.stud;
+package de.hda.fbi.db2.stud.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Map;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 /**
  * Game class.
