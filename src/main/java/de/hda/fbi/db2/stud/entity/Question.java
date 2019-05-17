@@ -1,6 +1,7 @@
 package de.hda.fbi.db2.stud.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Question")
 public class Question implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "Question_ID")
     private int qId;
@@ -34,9 +35,9 @@ public class Question implements Serializable {
     private Category category;
 
     // "TODO(xiaominjin): maybe implement equals and hash method."
-    //public Question() {
+    public Question() {
 
-    //}
+    }
 
     /*public Question(int qId, String q, String a1, String a2, String a3,
                     String a4, int s) {
@@ -105,12 +106,42 @@ public class Question implements Serializable {
         this.solution = solution;
     }
 
-    /*public Category getCategory() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Question)) {
+            return false;
+        }
+        Question question = (Question) o;
+        return getqId() == question.getqId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getqId());
+    }
+
+   public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
-    }*/
+    }
 
+    @Override
+    public String toString() {
+        return "Question{" +
+                "qId=" + qId +
+                ", question='" + question + '\'' +
+                ", a1='" + a1 + '\'' +
+                ", a2='" + a2 + '\'' +
+                ", a3='" + a3 + '\'' +
+                ", a4='" + a4 + '\'' +
+                ", solution=" + solution +
+                ", category=" + category +
+                '}';
+    }
 }

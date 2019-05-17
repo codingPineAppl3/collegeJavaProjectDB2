@@ -1,11 +1,11 @@
 package de.hda.fbi.db2.stud.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.*;
 import javax.persistence.*;
+import de.hda.fbi.db2.tools.CsvDataReader;
+
 
 /**
  * Load from .csl file.
@@ -18,51 +18,64 @@ public class LoadController {
     private static final String PU = "postgresPU";
     private EntityManagerFactory factory;
     String tmpCat = " ";
-    public void loadCsvFile(List<TmpQuestionCompare> sortTmpList) {
 
-        factory = Persistence.createEntityManagerFactory(PU);
-        EntityManager emf = factory.createEntityManager();
+    //public void loadCsvFile(List<TmpQuestionCompare> sortTmpList) {
+    public void loadCsvFile() {
+        try {
+            final List<String[]> defaultCsvLines = CsvDataReader.read();
+            defaultCsvLines.remove(0);
+            defaultCsvLines.sort((String[] s1, String[] s2)->s1[7].compareTo(s2[7]));
 
-        System.out.println("Transaction begin");
-        emf.getTransaction().begin();
-        for (TmpQuestionCompare tqc : sortTmpList) {
+            factory = Persistence.createEntityManagerFactory(PU);
+            EntityManager emf = factory.createEntityManager();
 
-            String newCat = tqc.getCategory();
-            if (tmpCat == " ") {
-                tmpCat = newCat;
+            System.out.println("Transaction begin");       //for tests
+            emf.getTransaction().begin();
+            for (String[] tqc : defaultCsvLines) {
+
+                String newCat = tqc[7];
+                if (tmpCat == " ") {
+                    tmpCat = newCat;
+                }
+                if (!newCat.equals(tmpCat)) {
+                    Category category = new Category();
+                    category.setName(tmpCat);
+                    category.setQuestionList(tmpQuestionL);
+                    System.out.println(category.toString());
+                    tmpCat = newCat;
+                    emf.persist(category);
+                    tmpQuestionL.clear();
+                }
+                Question question = new Question();
+                question.setqId(Integer.parseInt(tqc[0]));
+                question.setQuestion(tqc[1]);
+                question.setA1(tqc[2]);
+                question.setA2(tqc[3]);
+                question.setA3(tqc[4]);
+                question.setA4(tqc[5]);
+                question.setSolution(Integer.parseInt(tqc[6]));
+                emf.persist(question);
+                tmpQuestionL.add(question);
+
+                setCategory.add(tqc[7]);
             }
-            if (!newCat.equals(tmpCat)) {
-                Category category = new Category();
-                category.setName(tmpCat);
-                category.setQuestionList(tmpQuestionL);
-                category.printCategory();
-                tmpCat = newCat;
-                emf.persist(category);
-                tmpQuestionL.clear();
-            }
-            Question question = new Question();
-            question.setqId(tqc.getqId());
-            question.setQuestion(tqc.getQuestion());
-            question.setA1(tqc.getA1());
-            question.setA2(tqc.getA2());
-            question.setA3(tqc.getA3());
-            question.setA4(tqc.getA4());
-            question.setSolution(tqc.getCAnswer());
-            emf.persist(question);
-            tmpQuestionL.add(question);
+            Category category = new Category();
+            category.setName(tmpCat);
+            category.setQuestionList(tmpQuestionL);
+            System.out.println(category.toString());     //for tests
+            emf.persist(category);
 
-            setCategory.add(tqc.getCategory());  //ignore category dublicates
+            emf.getTransaction().commit();
+            emf.close();
+            factory.close();
+            System.out.println("Number of Categories: " + setCategory.size());
+
+        } catch (URISyntaxException use) {
+            System.out.println(use);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
         }
-        Category category = new Category();
-        category.setName(tmpCat);
-        category.setQuestionList(tmpQuestionL);
-        category.printCategory();     //for tests
-        emf.persist(category);
 
-        emf.getTransaction().commit();
-        emf.close();
-        factory.close();
-        System.out.println("Number of Categories: " + setCategory.size());
     }
 
     public LoadController() {

@@ -3,6 +3,8 @@ package de.hda.fbi.db2.stud.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import javax.annotation.CheckReturnValue;
 import javax.persistence.*;
 
 /**
@@ -13,10 +15,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Category")
 public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    //@SequenceGenerator(name = "seq", initialValue = 1, allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
     @Column(updatable = false, nullable = false)
     private int categoryID;
     @Column(name = "category_name", unique = true)
@@ -31,14 +32,14 @@ public class Category implements Serializable {
 
     }
 
-    /*public Category(String name, List<Question> questionList) {
+    public Category(String name, List<Question> questionList) {
         this.name = name;
         this.questionList = questionList;
     }
 
     public void addQuestion(Question newQuestion) {
        questionList.add(newQuestion);
-    }*/
+    }
 
 
     public void setName(String newName) {
@@ -53,18 +54,43 @@ public class Category implements Serializable {
         this.questionList = newQuestionList;
     }
 
-    /*public List<Question> getQuestionList() {
+    public List<Question> getQuestionList() {
         return questionList;
-    }*/
-
-    public void printCategory() {
-        System.out.println("Category: " + getName());
-        for (Question q : questionList) {
-            System.out.println("Question: " + q.getqId() + ", " + q.getQuestion());
-            System.out.println("Answer1: " + q.getA1() + "\tAnswer2: " + q.getA2()
-                    + "\tAnswer3: " + q.getA3() + "\tAnswer4: " + q.getA4());
-            System.out.println("Solution: " + q.getSolution());
-        }
     }
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    /*public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Category)) {
+            return false;
+        }
+        Category category = (Category) o;
+        return getCategoryID() == category.getCategoryID();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCategoryID());
+    }
+
+    @Override
+    @CheckReturnValue
+    public String toString() {
+
+        return "Category{" +
+                "categoryID=" + getCategoryID() +
+                ", name='" + getName() + "\\'" +
+                ", questionList=" + getQuestionList().toString() +
+                "}";
+    }
 }
