@@ -26,7 +26,6 @@ public class Category implements Serializable {
     //@OneToMany(targetEntity = Question.class)
     @JoinColumn(name = "category_ID")
     private List<Question> questionList = new ArrayList<>();   //all questions in one category
-    // "TODO(xiaominjin): maybe implement equals and hash method."
 
     public Category() {
 

@@ -1,5 +1,8 @@
 package de.hda.fbi.db2.stud;
 
+import java.nio.charset.Charset;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 import de.hda.fbi.db2.stud.entity.*;
 
 /**
@@ -15,17 +18,56 @@ public class Main {
      * Main Method and Entry-Point.
      * @param args Command-Line Arguments.
      */
-    //private static List<TmpQuestionCompare> sortTmpList = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Hello World");
-        LoadController lc = new LoadController();
-        lc.loadCsvFile();
-        //Read (if available) additional csv-files and default csv-file
-        //List<String> availableFiles = CsvDataReader.getAvailableFiles();
-        /*for (String availableFile: availableFiles){
-            final List<String[]> additionalCsvLines = CsvDataReader.read(availableFile);
-        }*/
+        final Scanner menuChoice = new Scanner(System.in, "UTF-8");
+        //final Scanner nameInput = new Scanner(System.in);
+        int playerChoice = 0;
+
+        while (playerChoice != 5) {
+            showMenu();
+
+            //check if input is an integer
+            Boolean scanLoop = true;
+            while (scanLoop) {
+                try {
+                    playerChoice = menuChoice.nextInt();
+                    scanLoop = false;
+                } catch (InputMismatchException nex) {
+                    System.out.println("Please enter a Number: " + nex);
+                    menuChoice.nextInt();
+                }
+            }
+
+            switch (playerChoice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    LoadController lc = new LoadController();
+                    lc.loadCsvFile();
+                    break;
+                case 5:
+                    System.out.println("Quit Game");
+                    break;
+                default:
+                    System.out.println("Invalid Choice");
+                    break;
+            }
+
+        }
+    }
+
+    public static void showMenu() {
+        System.out.println("\t\tWissenstest\t\t");
+        System.out.println("\t1. New Game");
+        System.out.println("\t2. Generate Statistics");
+        System.out.println("\t3. Show Statistics");
+        System.out.println("\t4. Load CSV-files");
+        System.out.println("\t5. Quit");
     }
 
     public String getGreeting() {

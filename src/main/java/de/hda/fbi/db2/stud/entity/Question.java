@@ -34,7 +34,6 @@ public class Question implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
-    // "TODO(xiaominjin): maybe implement equals and hash method."
     public Question() {
 
     }

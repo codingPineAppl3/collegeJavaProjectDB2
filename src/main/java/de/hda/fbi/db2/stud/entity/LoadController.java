@@ -77,7 +77,11 @@ public class LoadController {
         }
 
     }
-
+    //Read (if available) additional csv-files and default csv-file
+    //List<String> availableFiles = CsvDataReader.getAvailableFiles();
+        /*for (String availableFile: availableFiles){
+            final List<String[]> additionalCsvLines = CsvDataReader.read(availableFile);
+        }*/
     public LoadController() {
 
     }
