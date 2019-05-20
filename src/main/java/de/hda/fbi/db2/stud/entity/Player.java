@@ -17,7 +17,7 @@ public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
     private int playerID;
-    @Column(name = "Player", unique = true)
+    @Column(unique = true)
     private String playerName;
     private List<Game> gameList = new ArrayList<>();
 

@@ -24,7 +24,7 @@ public class Main {
         //Game game = new Game();
         //Player player = new Player();
         //Category category = new Category();
-        GenerateGameData generateGameData = new GenerateGameData();
+        //GenerateGameData generateGameData = new GenerateGameData();
         int playerChoice = 0;
 
         while (playerChoice != 5) {
