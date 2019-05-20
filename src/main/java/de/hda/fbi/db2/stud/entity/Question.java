@@ -133,14 +133,14 @@ public class Question implements Serializable {
     @Override
     public String toString() {
         return "Question{" +
-                "qId=" + qId +
-                ", question='" + question + '\'' +
-                ", a1='" + a1 + '\'' +
-                ", a2='" + a2 + '\'' +
-                ", a3='" + a3 + '\'' +
-                ", a4='" + a4 + '\'' +
-                ", solution=" + solution +
-                ", category=" + category +
+                "qId=" + getqId() +
+                ", question='" + getQuestion() + '\'' +
+                ", a1='" + getA1() + '\'' +
+                ", a2='" + getA2() + '\'' +
+                ", a3='" + getA3() + '\'' +
+                ", a4='" + getA4() + '\'' +
+                ", solution=" + getSolution() +
+                ", category=" + getCategory().getName() +
                 '}';
     }
 }

@@ -83,13 +83,13 @@ public class Category implements Serializable {
     }
 
     @Override
-    @CheckReturnValue
+    //@CheckReturnValue
     public String toString() {
 
         return "Category{" +
                 "categoryID=" + getCategoryID() +
                 ", name='" + getName() + "\\'" +
-                ", questionList=" + getQuestionList().toString() +
+                ", questionList=" + getQuestionList().size() +
                 "}";
     }
 }

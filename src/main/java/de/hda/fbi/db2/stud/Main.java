@@ -1,6 +1,5 @@
 package de.hda.fbi.db2.stud;
 
-import java.nio.charset.Charset;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import de.hda.fbi.db2.stud.entity.*;
@@ -22,6 +21,10 @@ public class Main {
     public static void main(String[] args) {
         final Scanner menuChoice = new Scanner(System.in, "UTF-8");
         //final Scanner nameInput = new Scanner(System.in);
+        //Game game = new Game();
+        //Player player = new Player();
+        //Category category = new Category();
+        GenerateGameData generateGameData = new GenerateGameData();
         int playerChoice = 0;
 
         while (playerChoice != 5) {
@@ -41,6 +44,10 @@ public class Main {
 
             switch (playerChoice) {
                 case 1:
+                    //generateGameData.fillWithData();
+                    //System.out.println("Enter Player name: ");
+                    //player.setPlayerName(nameInput.next());
+                    //System.out.println("Player: " + player.getPlayerName());
                     break;
                 case 2:
                     break;

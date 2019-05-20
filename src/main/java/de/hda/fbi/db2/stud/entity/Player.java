@@ -12,6 +12,7 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
+@Table(name = "Player")
 public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
@@ -59,12 +60,12 @@ public class Player implements Serializable {
             return false;
         }
         Player player = (Player) o;
-        return Objects.equals(getPlayerName(), player.getPlayerName());
+        return getPlayerID() == player.getPlayerID();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPlayerName());
+        return Objects.hash(getPlayerID());
     }
 
     @Override
