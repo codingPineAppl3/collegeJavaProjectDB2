@@ -12,13 +12,15 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
-@Table(name = "Player")
+@Table(name = "Player", schema = "wissensdatenbank")
 public class Player implements Serializable {
+  //  public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
     private int playerID;
     @Column(unique = true)
     private String playerName;
+    @OneToMany(mappedBy = "player1")
     private List<Game> gameList = new ArrayList<>();
 
     public Player() {}

@@ -11,20 +11,21 @@ import oracle.sql.TIMESTAMP;
  * @version 0.10
  */
 @Entity
-@Table(name = "Game")
+@Table(name = "Game", schema = "wissensdatenbank")
 public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_seq")
     private int gameID;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "playerID")
-    private Player player = new Player();
+
     private TIMESTAMP gameStartTime;
     private TIMESTAMP gameEndTime;
     private List<Category> categories = new ArrayList<>();
     private List<Question> questions = new ArrayList<>();
     private Map<Integer, Integer> answerMap = new HashMap<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playerID")
+    private Player player1;
     //private int countCorrectAnswers = 0;
 
     public Game() {
@@ -39,11 +40,11 @@ public class Game implements Serializable {
     }
 
     public Player getPlayer() {
-        return player;
+        return player1;
     }
 
     public void setPlayer(Player player) {
-        this.player = player;
+        this.player1 = player;
     }
 
     public TIMESTAMP getGameStartTime() {

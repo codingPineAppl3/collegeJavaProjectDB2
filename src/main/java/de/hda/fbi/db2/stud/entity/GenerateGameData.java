@@ -1,10 +1,11 @@
 package de.hda.fbi.db2.stud.entity;
-//import java.util.Iterator;
-//import java.util.List;
-//import java.util.Scanner;
-//import javax.persistence.EntityManager;
-//import javax.persistence.EntityManagerFactory;
-//import javax.persistence.Persistence;
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 
 /**
@@ -13,35 +14,35 @@ package de.hda.fbi.db2.stud.entity;
  * @version 0.1
  * @author xiaomin jin
  */
-public class GenerateGameData {
- //   private int categoryID;
- //   private int numberOfQuestions;
- //   private int playerAnswer;
-    //private Player player = new Player();
-    //private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
-    //private EntityManagerFactory factory;
-  //  private Category categories = new Category();
+public class GenerateGameData implements Serializable {
+    /*private int categoryID;
+    private int numberOfQuestions;
+    private int playerAnswer;
+    private Player player = new Player();
+    private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
+    private EntityManagerFactory factory;
+    //private Category categories = new Category();
 
     public void fillWithData() {
-         System.out.println("test");
-        //factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        //EntityManager emf = factory.createEntityManager();
-        //emf.getTransaction().begin();
+        System.out.println("test");
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager emf = factory.createEntityManager();
+        emf.getTransaction().begin();
 
         //"TODO(xiaominjin): delete after Praktikum 3"
         //"TODO(xiaominjin): begin here"
-        /*final Scanner playerName = new Scanner(System.in, "UTF-8");
+        final Scanner playerName = new Scanner(System.in, "UTF-8");
         System.out.println("Enter player name");
-        player.setPlayerName("fffff");
+        player.setPlayerName(playerName);
         emf.persist(player);
 
-        List resultL = emf.createQuery("Select c.name " +
-                "from Entity Category c ").getResultList();
+        List<Category> resultL = emf.createQuery("Select c " +
+                "from Category c").getResultList();
            for (Iterator i = resultL.iterator(); i.hasNext();) {
              Category c = (Category) i.next();
             System.out.println(c.getCategoryID());
-        }*/
+        }
         //"TODO(xiaominjin): end here"
 
-    }
+    }*/
 }

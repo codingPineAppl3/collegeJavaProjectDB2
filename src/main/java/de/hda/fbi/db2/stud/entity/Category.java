@@ -13,11 +13,12 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
-@Table(name = "Category")
+@Table(name = "Category", schema = "wissensdatenbank")
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+ //   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private int categoryID;
     @Column(name = "category_name", unique = true)

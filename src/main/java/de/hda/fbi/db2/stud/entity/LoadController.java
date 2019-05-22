@@ -42,13 +42,15 @@ public class LoadController {
                     category.setName(tmpCat);
                     category.setQuestionList(tmpQuestionL);
                     System.out.println(category.toString());
+                    emf.persist(category);
                     for (Question qst: tmpQuestionL) {
+                        //make fk not null
                         Question question = emf.find(Question.class, qst.getqId());
                         question.setCategory(category);
                         System.out.println(question.toString());
                     }
                     tmpCat = newCat;
-                    emf.persist(category);
+
                     tmpQuestionL.clear();
                 }
                 Question question = new Question();
@@ -62,7 +64,7 @@ public class LoadController {
                 emf.persist(question);
                 tmpQuestionL.add(question);
 
-                setCategory.add(tqc[7]);
+              //  setCategory.add(tqc[7]);
             }
             Category category = new Category();
             category.setName(tmpCat);
@@ -73,7 +75,7 @@ public class LoadController {
             for (Question qst: tmpQuestionL) {
                 Question question = emf.find(Question.class, qst.getqId());
                 question.setCategory(category);
-                //System.out.println(question.toString());
+             //   System.out.println(question.toString());
             }
             emf.getTransaction().commit();
             emf.close();

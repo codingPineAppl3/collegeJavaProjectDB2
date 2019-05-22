@@ -11,7 +11,7 @@ import javax.persistence.*;
  * @version 0.10
  */
 @Entity
-@Table(name = "Question")
+@Table(name = "Question", schema = "wissensdatenbank")
 public class Question implements Serializable {
 
     @Id
