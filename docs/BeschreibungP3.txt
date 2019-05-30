@@ -1,0 +1,14 @@
+##### Beschreibung Praktikum 3 #####
+- Game Entity soll die Player Entity sowie die Categorien bzw Fragen verwalten
+- Game Entity steuert die Reihenfolge der Spieler und Fragen
+- Game Entity entscheidet die Richtigkeit der Antworten
+- Entity Player verwaltet die playerID, playerName, gameList
+- Game speichert die Spieldaten, dh. die antworten der Spieler, die Questions zu jede Category, sowie die gewählten Categories
+
+##### Ablauf #####
+1. Player startet das Game und bekommt alle Categories auf einen Blick zu sehen, aus dem er mind. 2 auswählen muss
+2. Player wählt die Anzahl der Fragen aus, die er beantworten möchte.
+3. Game speichert die ausgewählte Category sowie die zufälligen Fragen in eine Liste ab
+3. Game zeigt Player nach und nach die zufälligen Fragen der jeweiligen Kategorien.
+4. Game speichert alle Spieleantworten ab
+
