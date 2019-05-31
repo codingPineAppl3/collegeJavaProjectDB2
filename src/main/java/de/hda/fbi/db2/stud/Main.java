@@ -25,9 +25,10 @@ public class Main {
         //Player player = new Player();
         //Category category = new Category();
         //GenerateGameData generateGameData = new GenerateGameData();
+        PlayGame playGame = new PlayGame();
         int playerChoice = 0;
 
-        while (playerChoice != 5) {
+        while (playerChoice != 6) {
             showMenu();
 
             //check if input is an integer
@@ -44,20 +45,22 @@ public class Main {
 
             switch (playerChoice) {
                 case 1:
-                    //generateGameData.fillWithData();
                     //System.out.println("Enter Player name: ");
                     //player.setPlayerName(nameInput.next());
                     //System.out.println("Player: " + player.getPlayerName());
                     break;
                 case 2:
+                    playGame.playingGame();
                     break;
                 case 3:
                     break;
                 case 4:
+                    break;
+                case 5:
                     LoadController lc = new LoadController();
                     lc.loadCsvFile();
                     break;
-                case 5:
+                case 6:
                     System.out.println("Quit Game");
                     break;
                 default:
@@ -71,10 +74,11 @@ public class Main {
     public static void showMenu() {
         System.out.println("\t\tWissenstest\t\t");
         System.out.println("\t1. New Game");
-        System.out.println("\t2. Generate Statistics");
-        System.out.println("\t3. Show Statistics");
-        System.out.println("\t4. Load CSV-files");
-        System.out.println("\t5. Quit");
+        System.out.println("\t2. Play Game");
+        System.out.println("\t3. Generate Statistics");
+        System.out.println("\t4. Show Statistics");
+        System.out.println("\t5. Load CSV-files");
+        System.out.println("\t6. Quit");
     }
 
     public String getGreeting() {

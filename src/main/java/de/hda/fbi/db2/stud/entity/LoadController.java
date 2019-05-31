@@ -1,6 +1,7 @@
 package de.hda.fbi.db2.stud.entity;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.*;
 import javax.persistence.*;
@@ -75,7 +76,7 @@ public class LoadController {
             for (Question qst: tmpQuestionL) {
                 Question question = emf.find(Question.class, qst.getqId());
                 question.setCategory(category);
-             //   System.out.println(question.toString());
+             //     System.out.println(question.toString());
             }
             emf.getTransaction().commit();
             emf.close();
