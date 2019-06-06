@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
  */
 public class PlayGame {
     private int categoryID;
-    private int questionID;
+    //private int questionID;
     //private Category categories = new Category();
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
     private EntityManagerFactory factory;
@@ -106,7 +106,7 @@ public class PlayGame {
             int counter = 0;
             int randomQuestion;
             Random randomGenerator = new Random();
-            List<Integer> randomQuestionList = new ArrayList<>();
+            //List<Integer> randomQuestionList = new ArrayList<>();
 
             while (counter < playerCategories.size()) {
                 categoryID = playerCategories.get(counter);
