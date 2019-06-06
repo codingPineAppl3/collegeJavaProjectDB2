@@ -2,7 +2,6 @@ package de.hda.fbi.db2.stud;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import de.hda.fbi.db2.stud.entity.*;
 
 /**
  * bin groupe 7
@@ -25,7 +24,9 @@ public class Main {
         //Player player = new Player();
         //Category category = new Category();
         //GenerateGameData generateGameData = new GenerateGameData();
-        PlayGame playGame = new PlayGame();
+    //    PlayGame playGame = new PlayGame();
+    //    GenerateGameData generate = new GenerateGameData();
+    //    generate.generatingData();
         int playerChoice = 0;
 
         while (playerChoice != 6) {
@@ -50,6 +51,7 @@ public class Main {
                     //System.out.println("Player: " + player.getPlayerName());
                     break;
                 case 2:
+                    PlayGame playGame = new PlayGame();
                     playGame.playingGame();
                     break;
                 case 3:

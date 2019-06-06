@@ -1,10 +1,13 @@
-package de.hda.fbi.db2.stud.entity;
+package de.hda.fbi.db2.stud;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.*;
 import javax.persistence.*;
+
+import de.hda.fbi.db2.stud.entity.Category;
+import de.hda.fbi.db2.stud.entity.Question;
 import de.hda.fbi.db2.tools.CsvDataReader;
 
 
@@ -19,6 +22,7 @@ public class LoadController {
     private static final String PU = "postgresPU";
     private EntityManagerFactory factory;
     String tmpCat = " ";
+    String newCat;
 
     //public void loadCsvFile(List<TmpQuestionCompare> sortTmpList) {
     public void loadCsvFile() {
@@ -34,7 +38,7 @@ public class LoadController {
             emf.getTransaction().begin();
             for (String[] tqc : defaultCsvLines) {
 
-                String newCat = tqc[7];
+                newCat = tqc[7];
                 if (tmpCat == " ") {
                     tmpCat = newCat;
                 }

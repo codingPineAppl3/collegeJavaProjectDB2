@@ -58,6 +58,10 @@ public class Category implements Serializable {
         return questionList;
     }
 
+    public Question getQuestionFromList(int position){
+        return questionList.get(position);
+    }
+
     public int getCategoryID() {
         return categoryID;
     }

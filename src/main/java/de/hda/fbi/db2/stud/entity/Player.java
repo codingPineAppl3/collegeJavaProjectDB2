@@ -16,7 +16,9 @@ import javax.persistence.*;
 public class Player implements Serializable {
   //  public class Player implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+  //  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
     private int playerID;
     @Column(unique = true)
     private String playerName;

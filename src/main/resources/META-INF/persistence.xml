@@ -5,6 +5,7 @@
              version="2.0">
     <persistence-unit name="postgresPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <mapping-file>META-INF/orm.xml</mapping-file>
         <class>de.hda.fbi.db2.stud.entity.Category</class>
         <class>de.hda.fbi.db2.stud.entity.Question</class>
         <class>de.hda.fbi.db2.stud.entity.Player</class>
