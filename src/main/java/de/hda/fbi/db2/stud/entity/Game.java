@@ -24,8 +24,9 @@ public class Game implements Serializable {
             //       @GeneratedValue(strategy = GenerationType.SEQUENCE,
      //       generator = "wissensdatenbank.game_seq")
     private int gameID;
-
+    @Column(name = "gameStartTime", updatable = false)
     private Timestamp gameStartTime;
+    @Column(name = "gameEndTime", updatable = false)
     private Timestamp gameEndTime;
     //private List<Category> categories = new ArrayList<>();
     @OneToMany
@@ -60,7 +61,8 @@ public class Game implements Serializable {
     }
 
     public Timestamp getGameStartTime() {
-        return gameStartTime;
+        Timestamp ts = new Timestamp(gameStartTime.getTime());
+        return ts;
     }
 
 
@@ -70,7 +72,8 @@ public class Game implements Serializable {
     }
 
     public Timestamp getGameEndTime() {
-        return gameEndTime;
+        Timestamp ts = new Timestamp(gameEndTime.getTime());
+        return ts;
     }
 
     public void setGameEndTime() {

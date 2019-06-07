@@ -1,12 +1,10 @@
 package de.hda.fbi.db2.stud;
-
-import de.hda.fbi.db2.stud.entity.*;
-
 import java.util.*;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+import de.hda.fbi.db2.stud.entity.*;
 
 /**
  * PlayGame - Player play game here.
@@ -31,15 +29,15 @@ public class PlayGame {
 
             final Scanner playerName = new Scanner(System.in, "UTF-8");
             System.out.println("Enter player name");
-            String PlayerNm = playerName.next();
+            String playerNm = playerName.next();
             Player player = new Player();
             List<Player> playerList =
-                    emf.createQuery("select p from Player p where p.playerName = :PlayerNm")
-                            .setParameter("PlayerNm", PlayerNm)
+                    emf.createQuery("select p from Player p where p.playerName = :playerNm")
+                            .setParameter("playerNm", playerNm)
                             .getResultList();
 
             if (playerList.size() == 0) {
-                player.setPlayerName(PlayerNm);
+                player.setPlayerName(playerNm);
                 emf.persist(player);
             } else {
                 player = playerList.get(0);
@@ -89,18 +87,19 @@ public class PlayGame {
                 questionSize.add(category.getQuestionList().size());
             }
             Collections.sort(questionSize); //find minium of availble questions
-            int NumberOfQuestions = questionSize.get(0);
+            int numberOfQuestions = questionSize.get(0);
 
-            System.out.println("number of max questions " + NumberOfQuestions);
+            System.out.println("number of max questions " + numberOfQuestions);
             System.out.println("Please select number of questions ");
-            final Scanner SelectNumberofQuestion = new Scanner(System.in, "UTF-8");
-            if (SelectNumberofQuestion.hasNextInt()) {
-                int SelectNumber = SelectNumberofQuestion.nextInt();
-                if (SelectNumber > NumberOfQuestions) {
+            final Scanner selectNumberofQuestion = new Scanner(System.in, "UTF-8");
+
+            if (selectNumberofQuestion.hasNextInt()) {
+                int selectNumber = selectNumberofQuestion.nextInt();
+                if (selectNumber > numberOfQuestions) {
                     System.out.println("You have selected too many questions, " +
-                            NumberOfQuestions + " will be accepted ");
+                            numberOfQuestions + " will be accepted ");
                 } else {
-                    NumberOfQuestions = SelectNumber;
+                    numberOfQuestions = selectNumber;
                 }
             }
             int counter = 0;
@@ -114,12 +113,12 @@ public class PlayGame {
                 //number of availble questions each category
                 int availbleQuestion = category.getQuestionList().size();
                 boolean doit = true;
-                List<Integer> selected_question = new ArrayList<Integer>();
-                for (int j = 0; j < NumberOfQuestions; j++) {
+                List<Integer> selectedquestion = new ArrayList<Integer>();
+                for (int j = 0; j < numberOfQuestions; j++) {
                     randomQuestion = randomGenerator.nextInt(availbleQuestion);
                     // if random generate same number
                     while (doit) {
-                        if (selected_question.contains(randomQuestion)) {
+                        if (selectedquestion.contains(randomQuestion)) {
                             if (randomQuestion == 0) {
                                 randomQuestion = randomQuestion + 1;
                             } else {
@@ -129,7 +128,7 @@ public class PlayGame {
                             doit = false;
                         }
                     }
-                    selected_question.add(randomQuestion);
+                    selectedquestion.add(randomQuestion);
                     doit = true;
 
 
@@ -162,7 +161,7 @@ public class PlayGame {
                         game.addAnswerMap(question.getqId(), answer);
                     }
                 }
-                selected_question.clear();
+                selectedquestion.clear();
                 ++counter;
             }
             game.setPlayer(player);
