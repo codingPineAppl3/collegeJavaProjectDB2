@@ -67,7 +67,7 @@ public class PlayGame {
                         System.out.println(exit + " has been selected ");
                     } else {
                         playerCategories.add(exit);
-                        numberOfChosenCategories++;
+                        ++numberOfChosenCategories;
                     }
                 }
 
@@ -95,6 +95,7 @@ public class PlayGame {
 
             if (selectNumberofQuestion.hasNextInt()) {
                 int selectNumber = selectNumberofQuestion.nextInt();
+                //check if question number chosen by player is exceed availble questions
                 if (selectNumber > numberOfQuestions) {
                     System.out.println("You have selected too many questions, " +
                             numberOfQuestions + " will be accepted ");
