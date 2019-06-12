@@ -67,7 +67,7 @@ public class PlayGame {
                         System.out.println(exit + " has been selected ");
                     } else {
                         playerCategories.add(exit);
-                        ++numberOfChosenCategories;
+                        numberOfChosenCategories++;
                     }
                 }
 

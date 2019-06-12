@@ -46,9 +46,8 @@ public class Main {
 
             switch (playerChoice) {
                 case 1:
-                    //System.out.println("Enter Player name: ");
-                    //player.setPlayerName(nameInput.next());
-                    //System.out.println("Player: " + player.getPlayerName());
+                    GenerateData generateData = new GenerateData();
+                    generateData.gendata();
                     break;
                 case 2:
                     PlayGame playGame = new PlayGame();
@@ -75,7 +74,7 @@ public class Main {
 
     public static void showMenu() {
         System.out.println("\t\tWissenstest\t\t");
-        System.out.println("\t1. New Game");
+        System.out.println("\t1. Generate Players playing game");
         System.out.println("\t2. Play Game");
         System.out.println("\t3. Generate Statistics");
         System.out.println("\t4. Show Statistics");
