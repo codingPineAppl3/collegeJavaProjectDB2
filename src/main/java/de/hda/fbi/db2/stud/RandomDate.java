@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Generate random time stamp
+ * Generate random time stamp.
  * @version 1.01
  * @author xiaominjin
  */
@@ -83,11 +83,11 @@ public class RandomDate {
         Date date2 = new Date();
         System.out.println(dateFormat2.format(date2));
 
-      //  ViewStatistics view = new ViewStatistics();
-        //    view.ShowPlayer(timefrom, timeto);
-        //   view.ShowGame(3);
-        //    view.ShowNumberOfGame();
-        //    view.SelectedCategories();
+      //ViewStatistics view = new ViewStatistics();
+        //view.showPlayer(timefrom, timeto);
+        //view.showGame(3);
+        //    view.showNumberOfGame();
+        //    view.selectedCategories();
         //    PlayGame playgame = new PlayGame();
         //    playgame.fillWithData();
         System.out.println("Generation finished");
