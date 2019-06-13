@@ -66,9 +66,8 @@ public class Game implements Serializable {
     }
 
 
-    public void setGameStartTime() {
-        LocalDateTime localdatetime = LocalDateTime.now();
-        this.gameStartTime = Timestamp.valueOf(localdatetime);
+    public void setGameStartTime(Timestamp ts) {
+        this.gameStartTime = ts;
     }
 
     public Timestamp getGameEndTime() {
@@ -76,9 +75,8 @@ public class Game implements Serializable {
         return ts;
     }
 
-    public void setGameEndTime() {
-        LocalDateTime localdatetime = LocalDateTime.now();
-        this.gameEndTime = Timestamp.valueOf(localdatetime);
+    public void setGameEndTime(Timestamp ts) {
+        this.gameEndTime = ts;
     }
 
     public List<Question> getQuestions() {
