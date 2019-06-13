@@ -3,17 +3,26 @@ package de.hda.fbi.db2.stud;
 import java.sql.Timestamp;
 import java.util.List;
 
-import de.hda.fbi.db2.stud.entity.*;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
+import javax.persistence.*;
+
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
+import de.hda.fbi.db2.stud.entity.*;
+
 //import org.eclipse.persistence.config.CacheUsage;
+
+/**
+ * View Game Statistics.
+ *
+ * @author xiaominjin
+ * @version 1.01
+ */
 public class ViewStatistics {
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
     private static EntityManagerFactory factory;
-    public void ShowPlayer(Timestamp timefrom, Timestamp timeto) {
+
+    public void showPlayer(Timestamp timefrom, Timestamp timeto) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
         @SuppressWarnings("unchecked")
@@ -24,13 +33,13 @@ public class ViewStatistics {
                         .setParameter("timeto", timeto)
                         .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                         .getResultList();
-        for(Player ply : resultL) {
+        for (Player ply : resultL) {
             System.out.println(ply);
         }
         em.close();
     }
 
-    public void ShowNumberOfGame() {
+    public void showNumberOfGame() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emg = factory.createEntityManager();
         @SuppressWarnings("unchecked")
@@ -41,13 +50,14 @@ public class ViewStatistics {
                 .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                 .getResultList();
         //   System.out.println("my test" + resultP.toString());
-        for(Object game : resultP) {
+        for (Object game : resultP) {
             printResult(game);
             System.out.println();
         }
         emg.close();
     }
-    public void SelectedCategories() {
+
+    public void selectedCategories() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emg = factory.createEntityManager();
         @SuppressWarnings("rawtypes")
@@ -58,14 +68,14 @@ public class ViewStatistics {
                 .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                 .getResultList();
         //   System.out.println("my test" + resultP.toString());
-        for(Object game : resultC) {
+        for (Object game : resultC) {
             printResult(game);
             System.out.println();
         }
         emg.close();
     }
 
-    public void ShowGame(int player_id) {
+    public void showGame(int playerId) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emf = factory.createEntityManager();
         @SuppressWarnings("unchecked")
@@ -86,14 +96,15 @@ public class ViewStatistics {
                         + " group by g.game_id ")
                         .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                         //     .setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheOnly)
-                        .setParameter("player_id", player_id)
+                        .setParameter("playerId", playerId)
                         .getResultList();
-        for(Object game : resultG) {
+        for (Object game : resultG) {
             printResult(game);
             System.out.println();
         }
         emf.close();
     }
+
     private static void printResult(Object result) {
         if (result == null) {
             System.out.print("NULL");
