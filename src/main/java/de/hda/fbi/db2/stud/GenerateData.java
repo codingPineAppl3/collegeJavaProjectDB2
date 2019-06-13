@@ -1,24 +1,20 @@
 package de.hda.fbi.db2.stud;
 
+import java.sql.Timestamp;
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import java.sql.Timestamp;
-//import java.io.IOException;
-//import java.net.URISyntaxException;
-//import java.util.ArrayList;
-//import java.util.List;
-import java.util.*;
-//import org.apache.commons.lang.RandomStringUtils;
 import de.hda.fbi.db2.stud.entity.Category;
 import de.hda.fbi.db2.stud.entity.Game;
 import de.hda.fbi.db2.stud.entity.Player;
 
 /**
  * Generate Data for Game.
- * @version 1.01
+ *
  * @author xiaominjin
+ * @version 1.01
  */
 public class GenerateData {
     private int categoryID;
@@ -71,19 +67,16 @@ public class GenerateData {
                 game.setGameStartTime(ts);
                 Category category = emf.find(Category.class, categoryID);
                 generateQuestion(category);
-                //    	game.addCategorytoList(category);} //3
+                //game.addCategorytoList(category);} //3
                 Category category2 = emf.find(Category.class, categoryID2);
                 generateQuestion(category2);
-                //     	game.addCategorytoList(category2);}  //4
+                //game.addCategorytoList(category2);}  //4
                 cal.add(Calendar.SECOND, 3);
                 ts = new Timestamp(cal.getTime().getTime());
                 game.setGameEndTime(ts);
                 game.setPlayer(player);
                 emf.persist(game);
 
-                //	emf.flush();
-                //	System.out.println("question " + category.getQuestionfromList(whichQuestion).getqId() + " game_id " + game.getGameID());
-                //	System.out.println("question " + category2.getQuestionfromList(whichQuestion2).getqId() + " game_id " + game.getGameID());
             } //1
         }    //0
         emf.getTransaction().commit();
@@ -101,7 +94,7 @@ public class GenerateData {
                 game.addQuestions(category.getQuestionFromList(whichQuestion));
                 game.addAnswerMap(category.getQuestionFromList(whichQuestion).getqId(), answer);
             } else {
-                // 	System.out.println("number of question " + numberofQuestion);
+                //System.out.println("number of question " + numberofQuestion);
                 whichQuestion = randomGenerator.nextInt(numberofQuestion);
                 answer = randomGenerator.nextInt(4) + 1;
                 game.addQuestions(category.getQuestionFromList(whichQuestion));
