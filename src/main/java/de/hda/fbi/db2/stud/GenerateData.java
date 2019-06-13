@@ -11,11 +11,15 @@ import java.sql.Timestamp;
 //import java.util.List;
 import java.util.*;
 //import org.apache.commons.lang.RandomStringUtils;
-import de.hda.fbi.db2.stud.Game;
 import de.hda.fbi.db2.stud.entity.Category;
 import de.hda.fbi.db2.stud.entity.Game;
 import de.hda.fbi.db2.stud.entity.Player;
 
+/**
+ * Generate Data for Game.
+ * @version 1.01
+ * @author xiaominjin
+ */
 public class GenerateData {
     private int categoryID;
     private int categoryID2;
@@ -26,7 +30,7 @@ public class GenerateData {
     private Timestamp ts;
     private Game game;
     private Random randomGenerator;
-    String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             + "0123456789"
             + "abcdefghijklmnopqrstuvxyz";
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
@@ -41,8 +45,8 @@ public class GenerateData {
 
             StringBuilder generatedString = new StringBuilder(10);
             for (int j = 0; j < 10; j++) {
-                int index = (int) (AlphaNumericString.length() * Math.random());
-                generatedString.append(AlphaNumericString.charAt(index));
+                int index = (int) (alphaNumericString.length() * Math.random());
+                generatedString.append(alphaNumericString.charAt(index));
             }
             Player player = new Player();
             player.setPlayerName(generatedString.toString());
@@ -67,63 +71,11 @@ public class GenerateData {
                 game.setGameStartTime(ts);
                 Category category = emf.find(Category.class, categoryID);
                 generateQuestion(category);
-                /*if (category != null) {                               //3
-                    numberofQuestion = category.getQuestionList().size();
-                    if (numberofQuestion < 2) {
-                        whichQuestion = 0;
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category.getQuestionFromList(whichQuestion));
-                        game.addAnswerMap(category.getQuestionFromList(whichQuestion).getqId(), answer);
-                    } else {
-                        // 	System.out.println("number of question " + numberofQuestion);
-                        whichQuestion = randomGenerator.nextInt(numberofQuestion);
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category.getQuestionFromList(whichQuestion));
-                        game.addAnswerMap(category.getQuestionFromList(whichQuestion).getqId(), answer);
-                        whichQuestion2 = randomGenerator.nextInt(numberofQuestion);
-                        if (whichQuestion == whichQuestion2) {
-                            if (whichQuestion != 0) {
-                                whichQuestion2 = whichQuestion2 - 1;
-                            } else {
-                                whichQuestion2 = whichQuestion2 + 1;
-                            }
-                        }
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category.getQuestionFromList(whichQuestion2));
-                        game.addAnswerMap(category.getQuestionFromList(whichQuestion2).getqId(), answer);
-                    }
-                }*/
                 //    	game.addCategorytoList(category);} //3
                 Category category2 = emf.find(Category.class, categoryID2);
                 generateQuestion(category2);
-                /*if (category2 != null) {            //4
-                    numberofQuestion = category2.getQuestionList().size();
-                    if (numberofQuestion < 2) {
-                        whichQuestion = 0;
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category2.getQuestionFromList(whichQuestion));
-                        game.addAnswerMap(category2.getQuestionFromList(whichQuestion).getqId(), answer);
-                    } else {
-                        // 	System.out.println("number of question " + numberofQuestion);
-                        whichQuestion = randomGenerator.nextInt(numberofQuestion);
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category2.getQuestionFromList(whichQuestion));
-                        game.addAnswerMap(category2.getQuestionFromList(whichQuestion).getqId(), answer);
-                        whichQuestion2 = randomGenerator.nextInt(numberofQuestion);
-                        if (whichQuestion == whichQuestion2) {
-                            if (whichQuestion != 0) {
-                                whichQuestion2 = whichQuestion2 - 1;
-                            } else {
-                                whichQuestion2 = whichQuestion2 + 1;
-                            }
-                        }
-                        answer = randomGenerator.nextInt(4) + 1;
-                        game.addQuestions(category2.getQuestionFromList(whichQuestion2));
-                        game.addAnswerMap(category2.getQuestionFromList(whichQuestion2).getqId(), answer);
-                    }
-                }*/
                 //     	game.addCategorytoList(category2);}  //4
-                cal.add(Calendar.SECOND, 30);
+                cal.add(Calendar.SECOND, 3);
                 ts = new Timestamp(cal.getTime().getTime());
                 game.setGameEndTime(ts);
                 game.setPlayer(player);
