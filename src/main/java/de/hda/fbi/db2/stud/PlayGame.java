@@ -1,4 +1,5 @@
 package de.hda.fbi.db2.stud;
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,8 @@ public class PlayGame {
     //private Category categories = new Category();
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
     private EntityManagerFactory factory;
+    private Timestamp ts;
+    private Calendar cal = (Calendar) Calendar.getInstance();
 
     public void playingGame() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -46,8 +49,11 @@ public class PlayGame {
             List<Category> showListOfCategory = emf.createQuery("Select c " +
                     "from Category c").getResultList();
 
+
+            cal.add(Calendar.SECOND, 30);
+            ts = new Timestamp(cal.getTime().getTime());
             Game game = new Game();
-            game.setGameStartTime();
+            game.setGameStartTime(ts);
             for (Iterator i = showListOfCategory.iterator(); i.hasNext(); ) {
                 Category c = (Category) i.next();
                 System.out.println(c.getCategoryID() + "\t" + c.getName());
@@ -166,7 +172,7 @@ public class PlayGame {
                 ++counter;
             }
             game.setPlayer(player);
-            game.setGameEndTime();
+            game.setGameEndTime(ts);
             emf.persist(game);
         } catch (InputMismatchException imex) {
             System.out.println("Exception caught: " + imex);
