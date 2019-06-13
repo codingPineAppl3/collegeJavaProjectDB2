@@ -1,5 +1,6 @@
 package de.hda.fbi.db2.stud;
 
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -46,8 +47,14 @@ public class Main {
 
             switch (playerChoice) {
                 case 1:
-                    GenerateData generateData = new GenerateData();
-                    generateData.gendata();
+                //    GenerateData generateData = new GenerateData();
+                //    Calendar newCalendar = (Calendar) Calendar.getInstance();
+                //    newCalendar.set(Calendar.MONTH, 5);
+                //    newCalendar.set(Calendar.YEAR, 2019);
+                //    newCalendar.set(Calendar.DATE, 1);
+                //    generateData.gendata(newCalendar);
+                    RandomDate randomdate = new RandomDate();
+                    randomdate.setCalendar();
                     break;
                 case 2:
                     PlayGame playGame = new PlayGame();
