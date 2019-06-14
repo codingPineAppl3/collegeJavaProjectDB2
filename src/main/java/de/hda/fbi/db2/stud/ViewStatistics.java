@@ -20,7 +20,7 @@ import de.hda.fbi.db2.stud.entity.*;
  */
 public class ViewStatistics {
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
-    private static EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
     public void showPlayer(Timestamp timefrom, Timestamp timeto) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);

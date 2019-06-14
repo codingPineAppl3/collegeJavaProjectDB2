@@ -67,7 +67,7 @@ public class Game implements Serializable {
 
 
     public void setGameStartTime(Timestamp ts) {
-        this.gameStartTime = ts;
+        this.gameStartTime = new Timestamp(ts.getTime());
     }
 
     public Timestamp getGameEndTime() {
@@ -76,7 +76,7 @@ public class Game implements Serializable {
     }
 
     public void setGameEndTime(Timestamp ts) {
-        this.gameEndTime = ts;
+        this.gameEndTime = new Timestamp(ts.getTime());
     }
 
     public List<Question> getQuestions() {

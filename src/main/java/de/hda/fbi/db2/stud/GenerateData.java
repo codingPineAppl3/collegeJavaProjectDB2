@@ -30,7 +30,7 @@ public class GenerateData {
             + "0123456789"
             + "abcdefghijklmnopqrstuvxyz";
     private static final String PERSISTENCE_UNIT_NAME = "postgresPU";
-    private static EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
     public void gendata(Calendar cal) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -41,7 +41,7 @@ public class GenerateData {
 
             StringBuilder generatedString = new StringBuilder(10);
             for (int j = 0; j < 10; j++) {
-                int index = (int) (alphaNumericString.length() * Math.random());
+                int index = randomGenerator.nextInt(alphaNumericString.length());
                 generatedString.append(alphaNumericString.charAt(index));
             }
             Player player = new Player();
