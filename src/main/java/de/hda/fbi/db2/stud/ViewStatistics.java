@@ -25,18 +25,26 @@ public class ViewStatistics {
     public void showPlayer(Timestamp timefrom, Timestamp timeto) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
-        @SuppressWarnings("unchecked")
-        List<Player> resultL =
-                em.createQuery("select distinct p from Player p inner join Game g "
-                        + "where g.time_start between :timefrom and :timeto")
-                        .setParameter("timefrom", timefrom)
-                        .setParameter("timeto", timeto)
-                        .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
-                        .getResultList();
-        for (Player ply : resultL) {
-            System.out.println(ply);
+        try {
+            @SuppressWarnings("unchecked")
+            List<Player> resultL =
+                    em.createQuery("select distinct p from Player p inner join Game g "
+                            + "where g.gameStartTime between :timefrom and :timeto")
+                            .setParameter("timefrom", timefrom)
+                            .setParameter("timeto", timeto)
+                            .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
+                            .getResultList();
+            for (Player ply : resultL) {
+                System.out.println(ply);
+            }
+        } catch (RuntimeException re) {
+            //if (emg != null && emg.isOpen()) {
+            //   emg.close();
+            //}
+            throw re;
+        } finally {
+            em.close();
         }
-        em.close();
     }
 
     public void showNumberOfGame() {
@@ -46,9 +54,9 @@ public class ViewStatistics {
 
         try {
             @SuppressWarnings("unchecked")
-            List resultP = emg.createQuery("select p.player_id, count(g.game_id)"
-                    + " from Game g inner join  g.player p"
-                    + " group by p.player_id order by count(g.game_id) ")
+            List resultP = emg.createQuery("select distinct p.playerID, count(g.gameID)"
+                    + " from Game g inner join  g.player1 p"
+                    + " group by p.playerID order by count(g.gameID) ")
                     .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                     .getResultList();
             //   System.out.println("my test" + resultP.toString());
@@ -72,10 +80,10 @@ public class ViewStatistics {
         EntityManager emg = factory.createEntityManager();
         try {
             @SuppressWarnings("rawtypes")
-            List resultC = emg.createQuery("select c.category_id, count(c.category_id)"
-                    + " from Question q inner join  q.category1 c, Game g "
-                    + " where q MEMBER OF g.listquestion "
-                    + " group by c.category_id order by count(c.category_id) ")
+            List resultC = emg.createQuery("select c.categoryID, count(c.categoryID)"
+                    + " from Question q inner join  q.category c, Game g "
+                    + " where q MEMBER OF g.questions "
+                    + " group by c.categoryID order by count(c.categoryID) ")
                     .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                     .getResultList();
             //   System.out.println("my test" + resultP.toString());
@@ -100,23 +108,24 @@ public class ViewStatistics {
         try {
             @SuppressWarnings("unchecked")
             List resultG =
-                    emf.createQuery("select g.game_id, g.time_start, count(q.qId), "
+                    emf.createQuery("select g.gameID, g.gameStartTime, count(q.qId), "
                             + "(select count(q1.qId) from "
-                            + "Game g1 inner join g1.mapanswer a1, "
+                            + "Game g1 inner join g1.answerMap a1, "
                             + " Question q1 "
                             + " where q1.qId = KEY(a1) and "
-                            + " q1.correctanswer = VALUE(a1) and "
-                            + " g.game_id = g1.game_id)"
+                            + " q1.solution = VALUE(a1) and "
+                            + " g.gameID = g1.gameID)"
 
                             + " from "
-                            + "Game g inner join g.player p inner join g.mapanswer a, "
+                            + "Game g inner join g.player1"
+                            + " p inner join g.answerMap a, "
                             + " Question q "
                             + " where q.qId = KEY(a) and "
-                            + " p.player_id = :player_id "
-                            + " group by g.game_id ")
+                            + " p.playerID = :playerID "
+                            + " group by g.gameID ")
                             .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                             //     .setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheOnly)
-                            .setParameter("playerId", playerId)
+                            .setParameter("playerID", playerId)
                             .getResultList();
             for (Object game : resultG) {
                 printResult(game);

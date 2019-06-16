@@ -1,5 +1,11 @@
 package de.hda.fbi.db2.stud;
 
+import de.hda.fbi.db2.stud.entity.Game;
+import de.hda.fbi.db2.stud.entity.Player;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,15 +26,14 @@ public class Main {
 
     public static void main(String[] args) {
         final Scanner menuChoice = new Scanner(System.in, "UTF-8");
-        ViewStatistics vStatistics = new ViewStatistics();
-        //final Scanner nameInput = new Scanner(System.in);
-        //Game game = new Game();
-        //Player player = new Player();
-        //Category category = new Category();
-        //GenerateGameData generateGameData = new GenerateGameData();
-    //    PlayGame playGame = new PlayGame();
-    //    GenerateGameData generate = new GenerateGameData();
-    //    generate.generatingData();
+        //ViewStatistics vStatistics = new ViewStatistics();
+        String testStart = "2019.01.01.10.10.00";
+        String testEnd = "2019.01.05.23.10.00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy.MM.dd.HH.mm.ss" );
+        LocalDateTime testfrom = LocalDateTime.parse(testStart, formatter);
+        LocalDateTime testto = LocalDateTime.parse(testEnd, formatter);
+        Timestamp timefrom = Timestamp.valueOf(testfrom);
+        Timestamp timeto = Timestamp.valueOf(testto);
         int playerChoice = 0;
 
         while (playerChoice != 8) {
@@ -63,17 +68,21 @@ public class Main {
                     playGame.playingGame();
                     break;
                 case 3:
-
-                    //vStatistics.showPlayer();
+                    ViewStatistics viewPlayers = new ViewStatistics();
+                    viewPlayers.showPlayer(timefrom, timeto);
                     break;
                 case 4:
-                    vStatistics.showNumberOfGame();
+                    ViewStatistics viewNumberOfGames = new ViewStatistics();
+                    viewNumberOfGames.showNumberOfGame();
                     break;
                 case 5:
-                    vStatistics.selectedCategories();
+                    ViewStatistics viewSelectedCategories = new ViewStatistics();
+                    viewSelectedCategories.selectedCategories();
                     break;
                 case 6:
-                    //vStatistics.showGame();
+                    ViewStatistics viewGame = new ViewStatistics();
+                    //Player players = new Player();
+                    viewGame.showGame(20);
                     break;
                 case 7:
                     LoadController lc = new LoadController();
@@ -94,10 +103,10 @@ public class Main {
         System.out.println("\t\tWissenstest\t\t");
         System.out.println("\t1. Generate Players playing game");
         System.out.println("\t2. Play Game");
-        System.out.println("\t3. Show Player Statistics");
-        System.out.println("\t4. Show Number of Games");
+        System.out.println("\t3. Show Player");
+        System.out.println("\t4. Show Number of Games played");
         System.out.println("\t5. Show Selected Categories");
-        System.out.println("\t6. Show Played Games");
+        System.out.println("\t6. Show Games");
         System.out.println("\t7. Load CSV-files");
         System.out.println("\t8. Quit");
     }
