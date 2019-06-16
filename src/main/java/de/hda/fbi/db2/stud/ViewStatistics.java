@@ -40,69 +40,97 @@ public class ViewStatistics {
     }
 
     public void showNumberOfGame() {
+
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emg = factory.createEntityManager();
-        @SuppressWarnings("unchecked")
 
-        List resultP = emg.createQuery("select p.player_id, count(g.game_id)"
-                + " from Game g inner join  g.player p"
-                + " group by p.player_id order by count(g.game_id) ")
-                .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
-                .getResultList();
-        //   System.out.println("my test" + resultP.toString());
-        for (Object game : resultP) {
-            printResult(game);
-            System.out.println();
+        try {
+            @SuppressWarnings("unchecked")
+            List resultP = emg.createQuery("select p.player_id, count(g.game_id)"
+                    + " from Game g inner join  g.player p"
+                    + " group by p.player_id order by count(g.game_id) ")
+                    .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
+                    .getResultList();
+            //   System.out.println("my test" + resultP.toString());
+            for (Object game : resultP) {
+                printResult(game);
+                System.out.println();
+            }
+            emg.close();
+        } catch (RuntimeException re) {
+            if (emg != null && emg.isOpen()) {
+                emg.close();
+            }
+            throw re;
+        } finally {
+            emg.close();
         }
-        emg.close();
     }
 
     public void selectedCategories() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emg = factory.createEntityManager();
-        @SuppressWarnings("rawtypes")
-        List resultC = emg.createQuery("select c.category_id, count(c.category_id)"
-                + " from Question q inner join  q.category1 c, Game g "
-                + " where q MEMBER OF g.listquestion "
-                + " group by c.category_id order by count(c.category_id) ")
-                .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
-                .getResultList();
-        //   System.out.println("my test" + resultP.toString());
-        for (Object game : resultC) {
-            printResult(game);
-            System.out.println();
+        try {
+            @SuppressWarnings("rawtypes")
+            List resultC = emg.createQuery("select c.category_id, count(c.category_id)"
+                    + " from Question q inner join  q.category1 c, Game g "
+                    + " where q MEMBER OF g.listquestion "
+                    + " group by c.category_id order by count(c.category_id) ")
+                    .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
+                    .getResultList();
+            //   System.out.println("my test" + resultP.toString());
+            for (Object game : resultC) {
+                printResult(game);
+                System.out.println();
+            }
+            emg.close();
+        } catch (RuntimeException re) {
+            if (emg != null && emg.isOpen()) {
+                emg.close();
+            }
+            throw re;
+        } finally {
+            emg.close();
         }
-        emg.close();
     }
 
     public void showGame(int playerId) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emf = factory.createEntityManager();
-        @SuppressWarnings("unchecked")
-        List resultG =
-                emf.createQuery("select g.game_id, g.time_start, count(q.qId), "
-                        + "(select count(q1.qId) from "
-                        + "Game g1 inner join g1.mapanswer a1, "
-                        + " Question q1 "
-                        + " where q1.qId = KEY(a1) and "
-                        + " q1.correctanswer = VALUE(a1) and "
-                        + " g.game_id = g1.game_id)"
+        try {
+            @SuppressWarnings("unchecked")
+            List resultG =
+                    emf.createQuery("select g.game_id, g.time_start, count(q.qId), "
+                            + "(select count(q1.qId) from "
+                            + "Game g1 inner join g1.mapanswer a1, "
+                            + " Question q1 "
+                            + " where q1.qId = KEY(a1) and "
+                            + " q1.correctanswer = VALUE(a1) and "
+                            + " g.game_id = g1.game_id)"
 
-                        + " from "
-                        + "Game g inner join g.player p inner join g.mapanswer a, "
-                        + " Question q "
-                        + " where q.qId = KEY(a) and "
-                        + " p.player_id = :player_id "
-                        + " group by g.game_id ")
-                        .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
-                        //     .setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheOnly)
-                        .setParameter("playerId", playerId)
-                        .getResultList();
-        for (Object game : resultG) {
-            printResult(game);
-            System.out.println();
+                            + " from "
+                            + "Game g inner join g.player p inner join g.mapanswer a, "
+                            + " Question q "
+                            + " where q.qId = KEY(a) and "
+                            + " p.player_id = :player_id "
+                            + " group by g.game_id ")
+                            .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
+                            //     .setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheOnly)
+                            .setParameter("playerId", playerId)
+                            .getResultList();
+            for (Object game : resultG) {
+                printResult(game);
+                System.out.println();
+            }
+            emf.close();
+        } catch (RuntimeException re) {
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
+            throw re;
+        } finally {
+            emf.close();
         }
-        emf.close();
     }
 
     private static void printResult(Object result) {

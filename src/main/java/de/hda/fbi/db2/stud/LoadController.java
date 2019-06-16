@@ -91,6 +91,13 @@ public class LoadController {
             System.out.println(use);
         } catch (IOException ioe) {
             System.out.println(ioe);
+        } catch (RuntimeException re) {
+            //if (emf != null && emf.isActive()) {
+            // emf.rollback();
+            //}
+            throw re;
+        } finally {
+            factory.close();
         }
 
     }

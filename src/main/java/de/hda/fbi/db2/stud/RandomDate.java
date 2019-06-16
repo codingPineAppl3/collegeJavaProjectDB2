@@ -14,16 +14,6 @@ import java.util.*;
  */
 public class RandomDate {
     public void setCalendar() {
-     //   String testStart = "2019.01.01.10.10.00";
-     //   String testEnd = "2019.01.05.23.10.00";
-     //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd.HH.mm.ss");
-     //   LocalDateTime testfrom = LocalDateTime.parse(testStart, formatter);
-     //   LocalDateTime testto = LocalDateTime.parse(testEnd, formatter);
-     //   Timestamp timefrom = Timestamp.valueOf(testfrom);
-     //   Timestamp timeto = Timestamp.valueOf(testto);
-      //  System.out.println("Hello World");
-        //     LoadController loadcontroller = new LoadController();
-        //     loadcontroller.LoadCSV();
       //  System.out.println("Generate Data");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();

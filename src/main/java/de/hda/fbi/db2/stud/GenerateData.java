@@ -35,54 +35,63 @@ public class GenerateData {
     public void gendata(Calendar cal) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager emf = factory.createEntityManager();
-        emf.getTransaction().begin();
-        // load player
-        for (int i = 0; i < 1000; ++i) {      //0
+        try {
+            emf.getTransaction().begin();
+            randomGenerator = new Random();
+            // load player
+            for (int i = 0; i < 1000; ++i) {      //0
 
-            StringBuilder generatedString = new StringBuilder(10);
-            for (int j = 0; j < 10; j++) {
-                int index = randomGenerator.nextInt(alphaNumericString.length());
-                generatedString.append(alphaNumericString.charAt(index));
+                StringBuilder generatedString = new StringBuilder(10);
+                for (int j = 0; j < 10; j++) {
+                    int index = randomGenerator.nextInt(alphaNumericString.length());
+                    generatedString.append(alphaNumericString.charAt(index));
+                }
+                Player player = new Player();
+                player.setPlayerName(generatedString.toString());
+                emf.persist(player);
+
+                // load game
+                for (int j = 0; j < 100; ++j) {            //1
+                    //Random randomGenerator = new Random();
+                    //   randomGenerator = new Random();
+                    categoryID = randomGenerator.nextInt(51) + 1;
+                    categoryID2 = randomGenerator.nextInt(51) + 1;
+                    if (categoryID == categoryID2) {          //2
+                        if (categoryID > 1) {
+                            categoryID2 = categoryID2 - 1;
+                        } else {
+                            categoryID2 = categoryID2 + 1;
+                        }
+                    }                                        //2
+                    //Game game = new Game();
+                    game = new Game();
+                    ts = new Timestamp(cal.getTime().getTime());
+                    game.setGameStartTime(ts);
+                    Category category = emf.find(Category.class, categoryID);
+                    generateQuestion(category);
+                    //game.addCategorytoList(category);} //3
+                    Category category2 = emf.find(Category.class, categoryID2);
+                    generateQuestion(category2);
+                    //game.addCategorytoList(category2);}  //4
+                    cal.add(Calendar.SECOND, 3);
+                    ts = new Timestamp(cal.getTime().getTime());
+                    game.setGameEndTime(ts);
+                    game.setPlayer(player);
+                    emf.persist(game);
+
+                } //1
+            }    //0
+            emf.getTransaction().commit();
+            emf.close();
+            factory.close();
+        } catch (RuntimeException re) {
+            if (emf != null && emf.isOpen()) {
+             emf.close();
             }
-            Player player = new Player();
-            player.setPlayerName(generatedString.toString());
-            emf.persist(player);
-
-            // load game
-            for (int j = 0; j < 100; ++j) {            //1
-                //Random randomGenerator = new Random();
-                randomGenerator = new Random();
-                categoryID = randomGenerator.nextInt(51) + 1;
-                categoryID2 = randomGenerator.nextInt(51) + 1;
-                if (categoryID == categoryID2) {          //2
-                    if (categoryID > 1) {
-                        categoryID2 = categoryID2 - 1;
-                    } else {
-                        categoryID2 = categoryID2 + 1;
-                    }
-                }                                        //2
-                //Game game = new Game();
-                game = new Game();
-                ts = new Timestamp(cal.getTime().getTime());
-                game.setGameStartTime(ts);
-                Category category = emf.find(Category.class, categoryID);
-                generateQuestion(category);
-                //game.addCategorytoList(category);} //3
-                Category category2 = emf.find(Category.class, categoryID2);
-                generateQuestion(category2);
-                //game.addCategorytoList(category2);}  //4
-                cal.add(Calendar.SECOND, 3);
-                ts = new Timestamp(cal.getTime().getTime());
-                game.setGameEndTime(ts);
-                game.setPlayer(player);
-                emf.persist(game);
-
-            } //1
-        }    //0
-        emf.getTransaction().commit();
-        emf.close();
-        factory.close();
-
+            throw re;
+        } finally {
+            factory.close();
+        }
     }
 
     public void generateQuestion(Category category) {

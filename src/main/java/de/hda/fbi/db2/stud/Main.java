@@ -20,6 +20,7 @@ public class Main {
 
     public static void main(String[] args) {
         final Scanner menuChoice = new Scanner(System.in, "UTF-8");
+        ViewStatistics vStatistics = new ViewStatistics();
         //final Scanner nameInput = new Scanner(System.in);
         //Game game = new Game();
         //Player player = new Player();
@@ -30,7 +31,7 @@ public class Main {
     //    generate.generatingData();
         int playerChoice = 0;
 
-        while (playerChoice != 6) {
+        while (playerChoice != 8) {
             showMenu();
 
             //check if input is an integer
@@ -40,7 +41,8 @@ public class Main {
                     playerChoice = menuChoice.nextInt();
                     scanLoop = false;
                 } catch (InputMismatchException nex) {
-                    System.out.println("Please enter a Number: " + nex);
+                    System.out.println("InputMismatchException caught: " + nex);
+                    System.out.println("Please Enter a Number");
                     menuChoice.nextInt();
                 }
             }
@@ -61,14 +63,23 @@ public class Main {
                     playGame.playingGame();
                     break;
                 case 3:
+
+                    //vStatistics.showPlayer();
                     break;
                 case 4:
+                    vStatistics.showNumberOfGame();
                     break;
                 case 5:
+                    vStatistics.selectedCategories();
+                    break;
+                case 6:
+                    //vStatistics.showGame();
+                    break;
+                case 7:
                     LoadController lc = new LoadController();
                     lc.loadCsvFile();
                     break;
-                case 6:
+                case 8:
                     System.out.println("Quit Game");
                     break;
                 default:
@@ -83,10 +94,12 @@ public class Main {
         System.out.println("\t\tWissenstest\t\t");
         System.out.println("\t1. Generate Players playing game");
         System.out.println("\t2. Play Game");
-        System.out.println("\t3. Generate Statistics");
-        System.out.println("\t4. Show Statistics");
-        System.out.println("\t5. Load CSV-files");
-        System.out.println("\t6. Quit");
+        System.out.println("\t3. Show Player Statistics");
+        System.out.println("\t4. Show Number of Games");
+        System.out.println("\t5. Show Selected Categories");
+        System.out.println("\t6. Show Played Games");
+        System.out.println("\t7. Load CSV-files");
+        System.out.println("\t8. Quit");
     }
 
     public String getGreeting() {
