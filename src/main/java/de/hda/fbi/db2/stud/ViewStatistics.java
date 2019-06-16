@@ -5,10 +5,10 @@ import java.util.List;
 
 
 import javax.persistence.*;
-
+import de.hda.fbi.db2.stud.entity.*;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
-import de.hda.fbi.db2.stud.entity.*;
+
 
 //import org.eclipse.persistence.config.CacheUsage;
 
@@ -56,11 +56,11 @@ public class ViewStatistics {
                 printResult(game);
                 System.out.println();
             }
-            emg.close();
+            //emg.close();
         } catch (RuntimeException re) {
-            if (emg != null && emg.isOpen()) {
-                emg.close();
-            }
+            //if (emg != null && emg.isOpen()) {
+             //   emg.close();
+            //}
             throw re;
         } finally {
             emg.close();
@@ -83,11 +83,11 @@ public class ViewStatistics {
                 printResult(game);
                 System.out.println();
             }
-            emg.close();
+            //emg.close();
         } catch (RuntimeException re) {
-            if (emg != null && emg.isOpen()) {
-                emg.close();
-            }
+            //if (emg != null && emg.isOpen()) {
+            //    emg.close();
+            //}
             throw re;
         } finally {
             emg.close();
@@ -122,11 +122,11 @@ public class ViewStatistics {
                 printResult(game);
                 System.out.println();
             }
-            emf.close();
+            //emf.close();
         } catch (RuntimeException re) {
-            if (emf != null && emf.isOpen()) {
-                emf.close();
-            }
+            //if (emf != null && emf.isOpen()) {
+            //    emf.close();
+            //}
             throw re;
         } finally {
             emf.close();

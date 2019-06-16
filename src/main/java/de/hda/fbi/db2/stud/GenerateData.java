@@ -82,8 +82,8 @@ public class GenerateData {
                 } //1
             }    //0
             emf.getTransaction().commit();
-            emf.close();
-            factory.close();
+            //emf.close();
+            //factory.close();
         } catch (RuntimeException re) {
             if (emf != null && emf.isOpen()) {
              emf.close();

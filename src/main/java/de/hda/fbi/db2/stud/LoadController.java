@@ -13,6 +13,7 @@ import de.hda.fbi.db2.tools.CsvDataReader;
 
 /**
  * Load from .csl file.
+ *
  * @author xiaominjin
  */
 public class LoadController {
@@ -26,13 +27,17 @@ public class LoadController {
 
     //public void loadCsvFile(List<TmpQuestionCompare> sortTmpList) {
     public void loadCsvFile() {
+
+        //final List<String[]> defaultCsvLines = CsvDataReader.read();
+        //defaultCsvLines.remove(0);
+        //defaultCsvLines.sort((String[] s1, String[] s2) -> s1[7].compareTo(s2[7]));
+
+        factory = Persistence.createEntityManagerFactory(PU);
+        EntityManager emf = factory.createEntityManager();
         try {
             final List<String[]> defaultCsvLines = CsvDataReader.read();
             defaultCsvLines.remove(0);
-            defaultCsvLines.sort((String[] s1, String[] s2)->s1[7].compareTo(s2[7]));
-
-            factory = Persistence.createEntityManagerFactory(PU);
-            EntityManager emf = factory.createEntityManager();
+            defaultCsvLines.sort((String[] s1, String[] s2) -> s1[7].compareTo(s2[7]));
 
             System.out.println("Transaction begin");       //for tests
             emf.getTransaction().begin();
@@ -48,7 +53,7 @@ public class LoadController {
                     category.setQuestionList(tmpQuestionL);
                     System.out.println(category.toString());
                     emf.persist(category);
-                    for (Question qst: tmpQuestionL) {
+                    for (Question qst : tmpQuestionL) {
                         //make fk not null
                         Question question = emf.find(Question.class, qst.getqId());
                         question.setCategory(category);
@@ -69,7 +74,7 @@ public class LoadController {
                 emf.persist(question);
                 tmpQuestionL.add(question);
 
-              //  setCategory.add(tqc[7]);
+                //  setCategory.add(tqc[7]);
             }
             Category category = new Category();
             category.setName(tmpCat);
@@ -77,14 +82,14 @@ public class LoadController {
             System.out.println(category.toString());     //for tests
             emf.persist(category);
 
-            for (Question qst: tmpQuestionL) {
+            for (Question qst : tmpQuestionL) {
                 Question question = emf.find(Question.class, qst.getqId());
                 question.setCategory(category);
-             //     System.out.println(question.toString());
+                //     System.out.println(question.toString());
             }
             emf.getTransaction().commit();
-            emf.close();
-            factory.close();
+            //emf.close();
+            //factory.close();
             System.out.println("Number of Categories: " + setCategory.size());
 
         } catch (URISyntaxException use) {
@@ -92,15 +97,16 @@ public class LoadController {
         } catch (IOException ioe) {
             System.out.println(ioe);
         } catch (RuntimeException re) {
-            //if (emf != null && emf.isActive()) {
-            // emf.rollback();
-            //}
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
             throw re;
         } finally {
             factory.close();
         }
 
     }
+
     //Read (if available) additional csv-files and default csv-file
     //List<String> availableFiles = CsvDataReader.getAvailableFiles();
         /*for (String availableFile: availableFiles){
