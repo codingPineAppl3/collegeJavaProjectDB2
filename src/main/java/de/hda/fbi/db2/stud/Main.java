@@ -4,9 +4,12 @@ import de.hda.fbi.db2.stud.entity.Game;
 import de.hda.fbi.db2.stud.entity.Player;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,8 +31,8 @@ public class Main {
         final Scanner menuChoice = new Scanner(System.in, "UTF-8");
         //ViewStatistics vStatistics = new ViewStatistics();
         String testStart = "2019.01.01.10.10.00";
-        String testEnd = "2019.01.05.23.10.00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy.MM.dd.HH.mm.ss" );
+        String testEnd = "2019.01.01.23.10.00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime testfrom = LocalDateTime.parse(testStart, formatter);
         LocalDateTime testto = LocalDateTime.parse(testEnd, formatter);
         Timestamp timefrom = Timestamp.valueOf(testfrom);
@@ -54,12 +57,6 @@ public class Main {
 
             switch (playerChoice) {
                 case 1:
-                //    GenerateData generateData = new GenerateData();
-                //    Calendar newCalendar = (Calendar) Calendar.getInstance();
-                //    newCalendar.set(Calendar.MONTH, 5);
-                //    newCalendar.set(Calendar.YEAR, 2019);
-                //    newCalendar.set(Calendar.DATE, 1);
-                //    generateData.gendata(newCalendar);
                     RandomDate randomdate = new RandomDate();
                     randomdate.setCalendar();
                     break;
@@ -68,21 +65,28 @@ public class Main {
                     playGame.playingGame();
                     break;
                 case 3:
+                    showTimestamp();    //test
                     ViewStatistics viewPlayers = new ViewStatistics();
                     viewPlayers.showPlayer(timefrom, timeto);
+                    showTimestamp();    //test
                     break;
                 case 4:
+                    showTimestamp();    //test
                     ViewStatistics viewNumberOfGames = new ViewStatistics();
                     viewNumberOfGames.showNumberOfGame();
+                    showTimestamp();    //test
                     break;
                 case 5:
+                    showTimestamp();    //test
                     ViewStatistics viewSelectedCategories = new ViewStatistics();
                     viewSelectedCategories.selectedCategories();
+                    showTimestamp();    //test
                     break;
                 case 6:
+                    showTimestamp();    //test
                     ViewStatistics viewGame = new ViewStatistics();
-                    //Player players = new Player();
                     viewGame.showGame(20);
+                    showTimestamp();    //test
                     break;
                 case 7:
                     LoadController lc = new LoadController();
@@ -109,6 +113,13 @@ public class Main {
         System.out.println("\t6. Show Games");
         System.out.println("\t7. Load CSV-files");
         System.out.println("\t8. Quit");
+    }
+
+    //for test purpose
+    public static void showTimestamp() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
     }
 
     public String getGreeting() {
