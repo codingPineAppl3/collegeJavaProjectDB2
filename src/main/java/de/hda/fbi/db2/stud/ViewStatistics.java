@@ -1,13 +1,12 @@
 package de.hda.fbi.db2.stud;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-
-import javax.persistence.*;
-import de.hda.fbi.db2.stud.entity.*;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
+
+import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.*;
+
 
 
 //import org.eclipse.persistence.config.CacheUsage;
@@ -27,14 +26,14 @@ public class ViewStatistics {
         EntityManager em = factory.createEntityManager();
         try {
             @SuppressWarnings("unchecked")
-            List<Player> resultL =
-                    em.createQuery("select distinct p from Player p inner join Game g "
+            List<String> resultL =
+                    em.createQuery("select distinct p.playerName from Player p inner join Game g "
                             + "where g.gameStartTime between :timefrom and :timeto")
                             .setParameter("timefrom", timefrom)
                             .setParameter("timeto", timeto)
                             .setHint(QueryHints.READ_ONLY, HintValues.TRUE)
                             .getResultList();
-            for (Player ply : resultL) {
+            for (String ply : resultL) {
                 System.out.println(ply);
             }
         } catch (RuntimeException re) {
@@ -155,7 +154,7 @@ public class ViewStatistics {
         } else if (result instanceof Long || result instanceof Double
                 || result instanceof String || result instanceof Integer
                 || result instanceof Timestamp) {
-            System.out.print(result.toString() + " ");
+            System.out.print(result.toString() + "\t");
         } else {
             System.out.print(result);
         }

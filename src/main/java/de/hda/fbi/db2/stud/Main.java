@@ -1,14 +1,10 @@
 package de.hda.fbi.db2.stud;
 
-import de.hda.fbi.db2.stud.entity.Game;
-import de.hda.fbi.db2.stud.entity.Player;
-
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
