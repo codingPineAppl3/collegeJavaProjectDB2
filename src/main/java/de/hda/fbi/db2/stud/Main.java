@@ -26,8 +26,8 @@ public class Main {
     public static void main(String[] args) {
         final Scanner menuChoice = new Scanner(System.in, "UTF-8");
         //ViewStatistics vStatistics = new ViewStatistics();
-        String testStart = "2019.01.01.10.10.00";
-        String testEnd = "2019.01.01.23.10.00";
+        String testStart = "2019/01/01 10:10:00";
+        String testEnd = "2019/01/01 23:10:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime testfrom = LocalDateTime.parse(testStart, formatter);
         LocalDateTime testto = LocalDateTime.parse(testEnd, formatter);
